@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: blueviolet;
+}
+header {
+  height: 400px;
+}
+.player-choice,
+.computer-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+button {
+  margin: 10px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
