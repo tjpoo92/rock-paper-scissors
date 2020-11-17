@@ -2,6 +2,7 @@ html
 button rock
 button paper
 button scissors
+button submit
 output scoreboard
 
 would like:

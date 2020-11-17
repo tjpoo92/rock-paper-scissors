@@ -23,6 +23,6 @@ button {
   margin: 10px;
 }
 
-.disabled {
+button:disabled {
   cursor: not-allowed;
 }

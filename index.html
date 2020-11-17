@@ -4,7 +4,6 @@
     <title>Rock, Paper, Scissors</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
   </head>
   <body>
     <header>
@@ -12,21 +11,20 @@
       <!-- picture and instructions? -->
     </header>
     <div class="flex-container">
-      <div class="player-choice">
+      <div class="player-choice" id="player-choice">
         <button id="player-rock">Rock</button>
         <button id="player-paper">Paper</button>
         <button id="player-scissors">Scissors</button>
       </div>
       <div class="computer-choice">
-        <button id="computer-rock" class="disabled" disabled>Rock</button>
-        <button id="computer-paper" class="disabled" disabled>Paper</button>
-        <button id="computer-scissors" class="disabled" disabled>
-          Scissors
-        </button>
+        <button id="computer-rock" disabled>Rock</button>
+        <button id="computer-paper" disabled>Paper</button>
+        <button id="computer-scissors" disabled>Scissors</button>
       </div>
     </div>
     <div>
       <!-- results displayed here -->
     </div>
   </body>
+  <script src="index.js"></script>
 </html>
