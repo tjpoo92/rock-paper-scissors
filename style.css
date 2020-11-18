@@ -19,6 +19,10 @@ header {
   height: auto;
 }
 
+.selected {
+  box-shadow: 0 0 1rem #ffc600;
+}
+
 button {
   margin: 10px;
 }

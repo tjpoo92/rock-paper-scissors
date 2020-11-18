@@ -1,8 +1,6 @@
 html
-button rock
-button paper
-button scissors
 button submit
+button play again
 output scoreboard
 
 would like:

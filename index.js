@@ -2,34 +2,32 @@ let playerScore = 0;
 let computerScore = 0;
 
 let playerSelection;
-function playerPlay() {
-    playerSelection = prompt(
-        "Choose: rock, paper or scissors"
-    ).toLowerCase();
-    validation(playerSelection);
-}
-function validation(playerSelection) {
-    while (!playerSelection.match(/^\s*(?:rock|paper|scissors)\s*$/i)) {
-        playerSelection = prompt(
-            "Please choose a valid option: rock, paper or scissors"
-        ).toLowerCase();
-    }
-    return playerSelection;
-}
-
 let computerSelection;
 function computerPlay() {
     computerSelection = Math.floor(Math.random() * 3 + 1);
     switch (computerSelection) {
         case 1:
-            computerSelection = "rock";
+            computerSelection = "Rock";
             break;
         case 2:
-            computerSelection = "paper";
+            computerSelection = "Paper";
             break;
         case 3:
-            computerSelection = "scissors";
+            computerSelection = "Scissors";
             break;
+    }
+
+    const computer = document.getElementsByClassName("computer")
+    for (let i = 0; i < computer.length; i++) {
+        let string = computer[i].textContent;
+
+        if (string == computerSelection) {
+            computer[i].classList.add("selected");
+
+        }
+        else {
+            computer[i].classList.remove("selected")
+        }
     }
     return computerSelection;
 }
@@ -37,15 +35,15 @@ function computerPlay() {
 let result;
 function playRound(playerSelection, computerSelection) {
     switch (true) {
-        case playerSelection == "Rock" && computerSelection == "paper":
-        case playerSelection == "Paper" && computerSelection == "scissors":
-        case playerSelection == "Scissors" && computerSelection == "rock":
+        case playerSelection == "Rock" && computerSelection == "Paper":
+        case playerSelection == "Paper" && computerSelection == "Scissors":
+        case playerSelection == "Scissors" && computerSelection == "Rock":
             console.log(`YOU LOSE! ${computerSelection} beats ${playerSelection}`);
             computerScore++;
             break;
-        case playerSelection == "Paper" && computerSelection == "rock":
-        case playerSelection == "Scissors" && computerSelection == "paper":
-        case playerSelection == "Rock" && computerSelection == "scissors":
+        case playerSelection == "Paper" && computerSelection == "Rock":
+        case playerSelection == "Scissors" && computerSelection == "Paper":
+        case playerSelection == "Rock" && computerSelection == "Scissors":
             console.log(`YOU WIN! ${playerSelection} beats ${computerSelection}`);
             playerScore++;
             break;
@@ -55,10 +53,22 @@ function playRound(playerSelection, computerSelection) {
 }
 function game(e) {
     playerSelection = e.target.textContent;
-    e.target.classList.add("selected");
+    document.querySelector("#submit").removeAttribute("disabled")
+    for (let i = 0; i < buttons.length; i++) {
+        let string = buttons[i].textContent;
+        buttons[i].classList.remove("selected")
+        if (string = playerSelection) {
+            e.target.classList.add("selected");
+        }
+    }
+}
+
+function submitSelection(e) {
     computerPlay();
     playRound(playerSelection, computerSelection);
+
 }
+
 // do {
 // game();
 // console.log(result);
@@ -66,7 +76,10 @@ function game(e) {
 // } while (playerScore < 5 && computerScore < 5);
 // if (playerScore == 5) console.log("Player wins!");
 // if (computerScore == 5) console.log("Computer wins!");
-const buttons = document.querySelectorAll("button");
-buttons.forEach((button) =>
-    button.addEventListener("click", game)
-)
+
+const buttons = document.getElementsByClassName("player");
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", game);
+}
+
+const submit = document.querySelector("#submit").addEventListener("click", submitSelection);
