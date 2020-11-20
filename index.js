@@ -34,20 +34,28 @@ function computerPlay() {
 
 let result;
 function playRound(playerSelection, computerSelection) {
+    let p = document.createElement("p");
+    let result = document.querySelector("#result")
     switch (true) {
         case playerSelection == "Rock" && computerSelection == "Paper":
         case playerSelection == "Paper" && computerSelection == "Scissors":
         case playerSelection == "Scissors" && computerSelection == "Rock":
+            p.innerText = `YOU LOSE! ${computerSelection} beats ${playerSelection}`
+            result.insertBefore(p, null)
             console.log(`YOU LOSE! ${computerSelection} beats ${playerSelection}`);
             computerScore++;
             break;
         case playerSelection == "Paper" && computerSelection == "Rock":
         case playerSelection == "Scissors" && computerSelection == "Paper":
         case playerSelection == "Rock" && computerSelection == "Scissors":
+            p.innerText = `YOU WIN! ${playerSelection} beats ${computerSelection}`
+            result.insertBefore(p, null)
             console.log(`YOU WIN! ${playerSelection} beats ${computerSelection}`);
             playerScore++;
             break;
         default:
+            p.innerText = "TIE GAME!"
+            result.insertBefore(p, null)
             console.log("TIE GAME!");
     }
 }
