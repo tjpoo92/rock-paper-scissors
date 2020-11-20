@@ -25,6 +25,7 @@ function computerPlay() {
         if (string == computerSelection) {
             computer[i].classList.add("selected");
 
+
         }
         else {
             computer[i].classList.remove("selected")
