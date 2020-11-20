@@ -3,6 +3,7 @@ let computerScore = 0;
 
 let playerSelection;
 let computerSelection;
+const computer = document.getElementsByClassName("computer")
 function computerPlay() {
     computerSelection = Math.floor(Math.random() * 3 + 1);
     switch (computerSelection) {
@@ -17,7 +18,7 @@ function computerPlay() {
             break;
     }
 
-    const computer = document.getElementsByClassName("computer")
+
     for (let i = 0; i < computer.length; i++) {
         let string = computer[i].textContent;
 
@@ -32,31 +33,37 @@ function computerPlay() {
     return computerSelection;
 }
 
-let result;
+
+let presult = document.createElement("p");
+presult.innerText = ""
+let pscore = document.createElement("p");
+let result = document.querySelector("#result")
 function playRound(playerSelection, computerSelection) {
-    let p = document.createElement("p");
-    let result = document.querySelector("#result")
+
     switch (true) {
         case playerSelection == "Rock" && computerSelection == "Paper":
         case playerSelection == "Paper" && computerSelection == "Scissors":
         case playerSelection == "Scissors" && computerSelection == "Rock":
-            p.innerText = `YOU LOSE! ${computerSelection} beats ${playerSelection}`
-            result.insertBefore(p, null)
-            console.log(`YOU LOSE! ${computerSelection} beats ${playerSelection}`);
+            presult.innerText = `YOU LOSE! ${computerSelection} beats ${playerSelection}`
+            result.insertBefore(presult, null)
             computerScore++;
+            pscore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(pscore, null)
             break;
         case playerSelection == "Paper" && computerSelection == "Rock":
         case playerSelection == "Scissors" && computerSelection == "Paper":
         case playerSelection == "Rock" && computerSelection == "Scissors":
-            p.innerText = `YOU WIN! ${playerSelection} beats ${computerSelection}`
-            result.insertBefore(p, null)
-            console.log(`YOU WIN! ${playerSelection} beats ${computerSelection}`);
+            presult.innerText = `YOU WIN! ${playerSelection} beats ${computerSelection}`
+            result.insertBefore(presult, null)
             playerScore++;
+            pscore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(pscore, null)
             break;
         default:
-            p.innerText = "TIE GAME!"
-            result.insertBefore(p, null)
-            console.log("TIE GAME!");
+            presult.innerText = "TIE GAME!"
+            pscore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(presult, null)
+            result.insertBefore(pscore, null)
     }
 }
 function game(e) {
@@ -69,21 +76,30 @@ function game(e) {
             e.target.classList.add("selected");
         }
     }
+    for (let i = 0; i < computer.length; i++) {
+        computer[i].classList.remove("selected");
+
+    }
 }
 
 function submitSelection(e) {
     computerPlay();
-    playRound(playerSelection, computerSelection);
+    if ((playerScore < 5) && (computerScore < 5)) {
+        playRound(playerSelection, computerSelection)
+    }
+    else {
+        playAgain()
+    };
 
 }
-
-// do {
-// game();
-// console.log(result);
-// console.log(`${playerScore} : ${computerScore}`);
-// } while (playerScore < 5 && computerScore < 5);
-// if (playerScore == 5) console.log("Player wins!");
-// if (computerScore == 5) console.log("Computer wins!");
+if (playerScore == 5) console.log("player wins")
+if (computerScore == 5) console.log("computer wins")
+if (playerScore == 5) { playAgain() };
+if (computerScore == 5) { playAgain() };
+function playAgain() {
+    document.querySelector("#play-again").removeAttribute("disabled")
+    document.querySelector("#submit").attribute = "disabled"
+}
 
 const buttons = document.getElementsByClassName("player");
 for (let i = 0; i < buttons.length; i++) {
