@@ -83,23 +83,41 @@ function game(e) {
     }
 }
 
+
 function submitSelection(e) {
     computerPlay();
-    if ((playerScore < 5) && (computerScore < 5)) {
-        playRound(playerSelection, computerSelection)
-    }
-    else {
-        playAgain()
-    };
-
+    playRound(playerSelection, computerSelection)
+    endGame()
 }
-if (playerScore == 5) console.log("player wins")
-if (computerScore == 5) console.log("computer wins")
-if (playerScore == 5) { playAgain() };
-if (computerScore == 5) { playAgain() };
+function endGame() {
+    if (playerScore == 5) {
+        document.querySelector("#play-again").removeAttribute("disabled");
+        document.querySelector("#submit").disabled = true;
+        alert("YOU WIN THE GAME!");
+    }
+    else if (computerScore == 5) {
+        document.querySelector("#play-again").removeAttribute("disabled");
+        document.querySelector("#submit").disabled = true;
+        alert("DANG! THE COMPUTER WON THE GAME!");
+    }
+    else return;
+};
+const playagain = document.querySelector("#play-again")
+playagain.addEventListener("click", playAgain);
 function playAgain() {
-    document.querySelector("#play-again").removeAttribute("disabled")
-    document.querySelector("#submit").attribute = "disabled"
+    playerScore = 0;
+    computerScore = 0;
+    presult.innerText = ""
+    pscore.innerText = ""
+    playagain.disabled = true;
+    for (let i = 0; i < computer.length; i++) {
+        computer[i].classList.remove("selected");
+    }
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("selected");
+
+    }
+
 }
 
 const buttons = document.getElementsByClassName("player");
@@ -107,4 +125,5 @@ for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", game);
 }
 
-const submit = document.querySelector("#submit").addEventListener("click", submitSelection);
+const submit = document.querySelector("#submit")
+submit.addEventListener("click", submitSelection);
