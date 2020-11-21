@@ -1,7 +1,32 @@
-let playerScore = 0;
-let computerScore = 0;
+const playerButtons = document.getElementsByClassName("player");
+for (let i = 0; i < playerButtons.length; i++) {
+    playerButtons[i].addEventListener("click", playerSelect);
+}
 
-let playerSelection;
+function playerSelect(e) {
+    playerSelection = e.target.textContent;
+    submitButton.removeAttribute("disabled")
+    for (let i = 0; i < playerButtons.length; i++) {
+        let string = playerButtons[i].textContent;
+        playerButtons[i].classList.remove("selected")
+        if (string = playerSelection) {
+            e.target.classList.add("selected");
+        }
+    }
+    for (let i = 0; i < computer.length; i++) {
+        computer[i].classList.remove("selected");
+    }
+}
+
+const submitButton = document.querySelector("#submit")
+submitButton.addEventListener("click", submitSelection);
+
+function submitSelection(e) {
+    computerPlay();
+    playRound(playerSelection, computerSelection)
+    endGame()
+}
+
 let computerSelection;
 const computer = document.getElementsByClassName("computer")
 function computerPlay() {
@@ -18,7 +43,6 @@ function computerPlay() {
             break;
     }
 
-
     for (let i = 0; i < computer.length; i++) {
         let string = computer[i].textContent;
 
@@ -34,96 +58,68 @@ function computerPlay() {
     return computerSelection;
 }
 
-
-let presult = document.createElement("p");
-presult.innerText = ""
-let pscore = document.createElement("p");
-let result = document.querySelector("#result")
+const pResult = document.createElement("p");
+const pScore = document.createElement("p");
+const result = document.querySelector("#result")
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
 function playRound(playerSelection, computerSelection) {
 
     switch (true) {
         case playerSelection == "Rock" && computerSelection == "Paper":
         case playerSelection == "Paper" && computerSelection == "Scissors":
         case playerSelection == "Scissors" && computerSelection == "Rock":
-            presult.innerText = `YOU LOSE! ${computerSelection} beats ${playerSelection}`
-            result.insertBefore(presult, null)
+            pResult.innerText = `YOU LOSE! ${computerSelection} beats ${playerSelection}`
+            result.insertBefore(pResult, null)
             computerScore++;
-            pscore.innerText = `${playerScore} - ${computerScore}`
-            result.insertBefore(pscore, null)
+            pScore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(pScore, null)
             break;
         case playerSelection == "Paper" && computerSelection == "Rock":
         case playerSelection == "Scissors" && computerSelection == "Paper":
         case playerSelection == "Rock" && computerSelection == "Scissors":
-            presult.innerText = `YOU WIN! ${playerSelection} beats ${computerSelection}`
-            result.insertBefore(presult, null)
+            pResult.innerText = `YOU WIN! ${playerSelection} beats ${computerSelection}`
+            result.insertBefore(pResult, null)
             playerScore++;
-            pscore.innerText = `${playerScore} - ${computerScore}`
-            result.insertBefore(pscore, null)
+            pScore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(pScore, null)
             break;
         default:
-            presult.innerText = "TIE GAME!"
-            pscore.innerText = `${playerScore} - ${computerScore}`
-            result.insertBefore(presult, null)
-            result.insertBefore(pscore, null)
-    }
-}
-function game(e) {
-    playerSelection = e.target.textContent;
-    document.querySelector("#submit").removeAttribute("disabled")
-    for (let i = 0; i < buttons.length; i++) {
-        let string = buttons[i].textContent;
-        buttons[i].classList.remove("selected")
-        if (string = playerSelection) {
-            e.target.classList.add("selected");
-        }
-    }
-    for (let i = 0; i < computer.length; i++) {
-        computer[i].classList.remove("selected");
-
+            pResult.innerText = "TIE GAME!"
+            pScore.innerText = `${playerScore} - ${computerScore}`
+            result.insertBefore(pResult, null)
+            result.insertBefore(pScore, null)
     }
 }
 
-
-function submitSelection(e) {
-    computerPlay();
-    playRound(playerSelection, computerSelection)
-    endGame()
-}
+const playAgainButton = document.querySelector("#play-again")
+playAgainButton.addEventListener("click", playAgain);
 function endGame() {
     if (playerScore == 5) {
-        document.querySelector("#play-again").removeAttribute("disabled");
-        document.querySelector("#submit").disabled = true;
+        playAgainButton.removeAttribute("disabled");
+        submitButton.disabled = true;
         alert("YOU WIN THE GAME!");
     }
     else if (computerScore == 5) {
-        document.querySelector("#play-again").removeAttribute("disabled");
-        document.querySelector("#submit").disabled = true;
+        playAgainButton.removeAttribute("disabled");
+        submitButton.disabled = true;
         alert("DANG! THE COMPUTER WON THE GAME!");
     }
     else return;
 };
-const playagain = document.querySelector("#play-again")
-playagain.addEventListener("click", playAgain);
+
 function playAgain() {
     playerScore = 0;
     computerScore = 0;
-    presult.innerText = ""
-    pscore.innerText = ""
-    playagain.disabled = true;
+    pResult.innerText = ""
+    pScore.innerText = ""
+    playAgainButton.disabled = true;
     for (let i = 0; i < computer.length; i++) {
         computer[i].classList.remove("selected");
     }
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove("selected");
+    for (let i = 0; i < playerButtons.length; i++) {
+        playerButtons[i].classList.remove("selected");
 
     }
-
 }
-
-const buttons = document.getElementsByClassName("player");
-for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", game);
-}
-
-const submit = document.querySelector("#submit")
-submit.addEventListener("click", submitSelection);
